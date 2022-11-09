@@ -1,19 +1,33 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import FormCheckBox from "../common/FormCheckbox";
 import FormField from "../common/FormField";
-import { login } from "./service";
+import { login, loginSave } from "./service";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [check, setCheck] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleChangeUserEmail = (event) => setUserEmail(event.target.value);
   const handleChangePassword = (event) => setPassword(event.target.value);
+  const handleChangeCheck = (event) => setCheck(event.target.checked);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await login({ email, password });
+    if (check) {
+      await loginSave({ email, password });
+    } else {
+      await login({ email, password });
+    }
+
     onLogin();
+    const to = location.state?.from?.path || "/";
+    navigate(to, { replace: true });
 
     console.log(email, password);
   };
@@ -42,12 +56,12 @@ const LoginPage = ({ onLogin }) => {
           onChange={handleChangePassword}
           value={password}
         />
-        <input
+        <FormCheckBox
           type='checkbox'
-          onChange={(event) => {
-            console.log(event.target.checked);
-          }}
-        ></input>
+          label='Remember Me'
+          onChange={handleChangeCheck}
+          value={check}
+        ></FormCheckBox>
         <button
           type='submit'
           variant='primary'
