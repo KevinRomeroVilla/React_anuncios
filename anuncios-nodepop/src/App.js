@@ -13,14 +13,7 @@ function App({ isInitiallyLogged }) {
     <div className='App'>
       <Routes>
         <Route path='/login' element={<LoginPage onLogin={handleLogin} />} />
-        <Route
-          path='/adverts'
-          element={
-            <RequireAuth isLogged={isLogged}>
-              <Adverts isLogged={isLogged} />
-            </RequireAuth>
-          }
-        />
+        <Route path='/adverts' element={<Adverts isLogged={isLogged} />} />
         <Route path='/' element={<Navigate to='/adverts' />} />
       </Routes>
     </div>

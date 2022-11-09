@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Button from "../common/Button";
 import FormCheckBox from "../common/FormCheckbox";
 import FormField from "../common/FormField";
 import { login, loginSave } from "./service";
@@ -38,7 +39,7 @@ const LoginPage = ({ onLogin }) => {
 
   return (
     <div className='loginPage'>
-      <h1 className='loginPage-title'>Log in to Twitter</h1>
+      <h1 className='loginPage-title'>Log in to Adverts page</h1>
       <form onSubmit={handleSubmit}>
         <FormField
           type='text'
@@ -62,14 +63,14 @@ const LoginPage = ({ onLogin }) => {
           onChange={handleChangeCheck}
           value={check}
         ></FormCheckBox>
-        <button
+        <Button
           type='submit'
           variant='primary'
           className='loginForm-submit'
           disabled={isButtonEnable()}
         >
           log in
-        </button>
+        </Button>
       </form>
     </div>
   );
