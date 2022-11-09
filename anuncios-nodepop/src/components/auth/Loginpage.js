@@ -2,17 +2,18 @@ import { useState } from "react";
 import FormField from "../common/FormField";
 import { login } from "./service";
 
-const LoginPage = () => {
+const LoginPage = ({ onLogin }) => {
   const [email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleChangeUserEmail = (event) => setUserEmail(event.target.value);
   const handleChangePassword = (event) => setPassword(event.target.value);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    login({ email, password }).then((result) => console.log(result));
+    await login({ email, password });
+    onLogin();
 
     console.log(email, password);
   };
@@ -41,6 +42,12 @@ const LoginPage = () => {
           onChange={handleChangePassword}
           value={password}
         />
+        <input
+          type='checkbox'
+          onChange={(event) => {
+            console.log(event.target.checked);
+          }}
+        ></input>
         <button
           type='submit'
           variant='primary'

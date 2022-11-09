@@ -6,4 +6,7 @@ const client = axios.create({
 
 client.interceptors.response.use((response) => response.data);
 
+export const setAutorizationHeader = (accessToken) =>
+  (client.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`);
+
 export default client;
