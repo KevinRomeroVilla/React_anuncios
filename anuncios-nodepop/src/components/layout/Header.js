@@ -1,4 +1,5 @@
 import Button from "../common/Button";
+import { Link, NavLink } from "react-router-dom";
 
 import { ReactComponent as Icon } from "../../assets/twitter.svg";
 import classNames from "classnames";
@@ -12,11 +13,16 @@ const Header = ({ className, isLogged, onLogout }) => {
 
   return (
     <header className={classNames("header", className)}>
-      <div className='header-logo'>
-        <Icon width='32' height='32' />
-      </div>
+      <Link to='/'>
+        <div className='header-logo'>
+          <Icon width='32' height='32' />
+        </div>
+      </Link>
       <nav className='header-nav'>
-        <Button>New Advert</Button>
+        <NavLink to='/adverts/new'>New Advert</NavLink>
+        <NavLink to='/adverts' end>
+          See all adverts
+        </NavLink>
         {isLogged ? (
           <Button className='header-button' onClick={handleLogoutClick}>
             Logout

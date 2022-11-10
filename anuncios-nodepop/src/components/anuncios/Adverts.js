@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getLatestAdverts } from "./service";
 import Layout from "../layout/Layout";
+import { Link } from "react-router-dom";
 
 const Adverts = (props) => {
   const [adverts, setAdverts] = useState([]);
@@ -15,7 +16,9 @@ const Adverts = (props) => {
         {adverts.length ? (
           <ul>
             {adverts.map((advert) => (
-              <li key={advert.id}>{advert.name}</li>
+              <li key={advert.id}>
+                <Link to={`/adverts/${advert.id}`}>{advert.name}</Link>
+              </li>
             ))}
           </ul>
         ) : (
