@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getLatestAdverts } from "./service";
 import Layout from "../layout/Layout";
 
-const Adverts = () => {
+const Adverts = (props) => {
   const [adverts, setAdverts] = useState([]);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ const Adverts = () => {
   }, []);
 
   return (
-    <Layout title='Adverts Page'>
+    <Layout title='Adverts Page' {...props}>
       <div className='advertsPage'>
         {adverts.length ? (
           <ul>

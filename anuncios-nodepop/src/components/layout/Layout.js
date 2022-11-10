@@ -1,14 +1,14 @@
 import Header from "./Header";
 
-const Layout = ({ title, children }) => {
+const Layout = ({ title, children, ...props }) => {
   return (
-    <div>
-      <Header />
-      <main>
-        <h2>{title}</h2>
-        <section>{children}</section>
+    <div className='layout'>
+      <Header className='layout-header bordered' {...props} />
+      <main className='layout-main bordered'>
+        <h2 className='layout-title bordered'>{title}</h2>
+        <section className='layout-content'>{children}</section>
       </main>
-      <footer>Pagina de anuncios</footer>
+      <footer className='layout-footer bordered'>Pagina de anuncios</footer>
     </div>
   );
 };

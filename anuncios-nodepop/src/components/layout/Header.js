@@ -1,16 +1,23 @@
 import Button from "../common/Button";
 
-import logo, { ReactComponent as Icon } from "../../assets/twitter.svg";
+import { ReactComponent as Icon } from "../../assets/twitter.svg";
+import classNames from "classnames";
 
-const Header = () => {
+const Header = ({ className, isLogged }) => {
   return (
-    <header>
-      <div>
+    <header className={classNames("header", className)}>
+      <div className='header-logo'>
         <Icon width='32' height='32' />
       </div>
-      <nav>
+      <nav className='header-nav'>
         <Button>New Advert</Button>
-        <Button>Login</Button>
+        {isLogged ? (
+          <Button className='header-button'>Logout</Button>
+        ) : (
+          <Button variant='primary' className='header-button'>
+            Login
+          </Button>
+        )}
       </nav>
     </header>
   );

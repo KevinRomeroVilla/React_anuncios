@@ -9,6 +9,8 @@ const LoginPage = ({ onLogin }) => {
   const [email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [check, setCheck] = useState(false);
+  const [error, setError] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,25 +18,31 @@ const LoginPage = ({ onLogin }) => {
   const handleChangeUserEmail = (event) => setUserEmail(event.target.value);
   const handleChangePassword = (event) => setPassword(event.target.value);
   const handleChangeCheck = (event) => setCheck(event.target.checked);
+  const reseteError = () => setError(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (check) {
-      await loginSave({ email, password });
-    } else {
-      await login({ email, password });
+    try {
+      reseteError();
+      setIsFetching(true);
+      if (check) {
+        await loginSave({ email, password });
+      } else {
+        await login({ email, password });
+      }
+
+      onLogin();
+      const to = location.state?.from?.path || "/";
+      navigate(to, { replace: true });
+    } catch (error) {
+      setError(error);
+      setIsFetching(false);
     }
-
-    onLogin();
-    const to = location.state?.from?.path || "/";
-    navigate(to, { replace: true });
-
-    console.log(email, password);
   };
 
   const isButtonEnable = () => {
-    return !(email && password);
+    return !(email && password && !isFetching);
   };
 
   return (
@@ -72,6 +80,11 @@ const LoginPage = ({ onLogin }) => {
           log in
         </Button>
       </form>
+      {error && (
+        <div onClick={reseteError} className='loginPage-error'>
+          {error.message}
+        </div>
+      )}
     </div>
   );
 };
