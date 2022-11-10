@@ -1,8 +1,8 @@
 import Layout from "../layout/Layout";
 
-const AdvertDetail = () => {
+const AdvertDetail = (props) => {
   return (
-    <Layout>
+    <Layout {...props}>
       <div>Adverts Detail</div>
     </Layout>
   );
