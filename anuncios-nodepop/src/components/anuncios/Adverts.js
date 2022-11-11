@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getLatestAdverts } from "./service";
-import Layout from "../layout/Layout";
 import { Link } from "react-router-dom";
 import Page from "../layout/Page";
 import Button from "../common/Button";
