@@ -3,6 +3,16 @@ import { getLatestAdverts } from "./service";
 import Layout from "../layout/Layout";
 import { Link } from "react-router-dom";
 import Page from "../layout/Page";
+import Button from "../common/Button";
+
+const EmptyList = () => (
+  <div style={{ textAlign: "center" }}>
+    <p>Be the first one!</p>
+    <Button as={Link} to='/adverts/new'>
+      Crea el primer anuncio
+    </Button>
+  </div>
+);
 
 const Adverts = (props) => {
   const [adverts, setAdverts] = useState([]);
@@ -23,7 +33,7 @@ const Adverts = (props) => {
             ))}
           </ul>
         ) : (
-          <button>Crea el primer anuncio</button>
+          <EmptyList />
         )}
       </div>
     </Page>

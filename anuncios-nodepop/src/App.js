@@ -21,14 +21,7 @@ function App({ isInitiallyLogged }) {
           path='/adverts'
           element={<Layout isLogged={isLogged} onLogout={handleLogout} />}
         >
-          <Route
-            index
-            element={
-              <RequireAuth isLogged={isLogged}>
-                <Adverts />
-              </RequireAuth>
-            }
-          />
+          <Route index element={<Adverts />} />
           <Route
             path=':advertsId'
             element={

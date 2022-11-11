@@ -33,7 +33,8 @@ const LoginPage = ({ onLogin }) => {
       }
 
       onLogin();
-      const to = location.state?.from?.path || "/";
+      console.log(location);
+      const to = location.state?.from?.pathname || "/";
       navigate(to, { replace: true });
     } catch (error) {
       setError(error);
