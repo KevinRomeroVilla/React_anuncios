@@ -1,10 +1,10 @@
-import Layout from "../layout/Layout";
+import Page from "../layout/Page";
 
 const NewAdvertsPage = (props) => {
   return (
-    <Layout {...props}>
+    <Page {...props}>
       <div>New Adverts</div>
-    </Layout>
+    </Page>
   );
 };
 

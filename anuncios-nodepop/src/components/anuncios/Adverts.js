@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getLatestAdverts } from "./service";
 import Layout from "../layout/Layout";
 import { Link } from "react-router-dom";
+import Page from "../layout/Page";
 
 const Adverts = (props) => {
   const [adverts, setAdverts] = useState([]);
@@ -11,7 +12,7 @@ const Adverts = (props) => {
   }, []);
 
   return (
-    <Layout title='Adverts Page' {...props}>
+    <Page title='Adverts Page' {...props}>
       <div className='advertsPage'>
         {adverts.length ? (
           <ul>
@@ -25,7 +26,7 @@ const Adverts = (props) => {
           <button>Crea el primer anuncio</button>
         )}
       </div>
-    </Layout>
+    </Page>
   );
 };
 
