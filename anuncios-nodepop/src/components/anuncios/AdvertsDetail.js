@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { getAdvertDetail } from "./service";
 
 const AdvertDetail = (props) => {
-  const [advert, setAdvert] = useState(null);
+  const [advert, setAdvert] = useState("");
   const { advertsId } = useParams();
   const navigate = useNavigate();
+  const [venta, setVenta] = useState("venta");
 
   useEffect(() => {
     getAdvertDetail(advertsId)
@@ -16,11 +17,27 @@ const AdvertDetail = (props) => {
           navigate("404");
         }
       });
-  }, [advertsId, navigate]);
+    if (advert.sale === false) {
+      setVenta("Compra");
+    }
+  }, [advertsId, navigate, advert.sale]);
 
   return (
     <Page title={"Adverts detail"} {...props}>
-      <div>{JSON.stringify(advert)}</div>
+      <div>{console.log(advert)}</div>
+      <div>
+        <img
+          height={200}
+          width={200}
+          className='advertDetailImage'
+          src={advert.photo}
+          alt='https://user-images.githubusercontent.com/43302778/106805462-7a908400-6645-11eb-958f-cd72b74a17b3.jpg'
+        ></img>
+        <p>Object name {advert.name}</p>
+        <p>Object price {advert.price}</p>
+        <p>{venta}</p>
+        <p>Object Tags {advert.tags}</p>
+      </div>
     </Page>
   );
 };
