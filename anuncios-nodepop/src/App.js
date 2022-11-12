@@ -1,55 +1,46 @@
-import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Adverts from "./components/anuncios/Adverts";
 import AdvertDetail from "./components/anuncios/AdvertsDetail";
 import NewAdvertsPage from "./components/anuncios/NewAdvertsPage";
-import { AuthContextProvider } from "./components/auth/context";
 import LoginPage from "./components/auth/Loginpage";
 import RequireAuth from "./components/auth/RequireAuth";
 import Layout from "./components/layout/Layout";
 
-function App({ isInitiallyLogged }) {
-  const [isLogged, setIsLoggeed] = useState(isInitiallyLogged);
-
-  const handleLogin = () => setIsLoggeed(true);
-  const handleLogout = () => setIsLoggeed(false);
-
+function App() {
   return (
     <div className='App'>
-      <AuthContextProvider value={{ isLogged, handleLogin, handleLogout }}>
-        <Routes>
-          <Route path='/login' element={<LoginPage onLogin={handleLogin} />} />
-          <Route path='/adverts' element={<Layout />}>
-            <Route
-              index
-              element={
-                <RequireAuth isLogged={isLogged}>
-                  <Adverts />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path=':advertsId'
-              element={
-                <RequireAuth isLogged={isLogged}>
-                  <AdvertDetail />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path='new'
-              element={
-                <RequireAuth isLogged={isLogged}>
-                  <NewAdvertsPage />
-                </RequireAuth>
-              }
-            />
-          </Route>
-          <Route path='/' element={<Navigate to='/adverts' />} />
-          <Route path='/404' element={<div>404 | Not found</div>} />
-          <Route path='*' element={<Navigate to='/404' />} />
-        </Routes>
-      </AuthContextProvider>
+      <Routes>
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/adverts' element={<Layout />}>
+          <Route
+            index
+            element={
+              <RequireAuth>
+                <Adverts />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path=':advertsId'
+            element={
+              <RequireAuth>
+                <AdvertDetail />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path='new'
+            element={
+              <RequireAuth>
+                <NewAdvertsPage />
+              </RequireAuth>
+            }
+          />
+        </Route>
+        <Route path='/' element={<Navigate to='/adverts' />} />
+        <Route path='/404' element={<div>404 | Not found</div>} />
+        <Route path='*' element={<Navigate to='/404' />} />
+      </Routes>
     </div>
   );
 }

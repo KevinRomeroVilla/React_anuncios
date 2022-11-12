@@ -11,3 +11,8 @@ export const getAdvertDetail = (advertsId) => {
   const url = `${advertsUrl}/${advertsId}`;
   return client.get(url);
 };
+
+export const createAdvert = (advert) => {
+  const url = advertsUrl;
+  return client.post(url, advert);
+};

@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
+import { AuthContextConsumer } from "./context";
 
-const RequireAuth = ({ isLogged, children }) => {
+export const RequireAuth = ({ isLogged, children }) => {
   const location = useLocation();
   if (!isLogged) {
     return <Navigate to='/login' state={{ from: location }} />;
@@ -8,4 +9,12 @@ const RequireAuth = ({ isLogged, children }) => {
   return children;
 };
 
-export default RequireAuth;
+const ConnectedRequireAuth = (props) => {
+  return (
+    <AuthContextConsumer>
+      {(value) => <RequireAuth {...props} isLogged={value.isLogged} />}
+    </AuthContextConsumer>
+  );
+};
+
+export default ConnectedRequireAuth;

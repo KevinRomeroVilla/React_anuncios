@@ -4,11 +4,10 @@ import { Link, NavLink } from "react-router-dom";
 import { ReactComponent as Icon } from "../../assets/twitter.svg";
 import classNames from "classnames";
 import { logout } from "../auth/service";
-import { useContext } from "react";
-import AuthContext from "../auth/context";
+import { useAuth } from "../auth/context";
 
 const Header = ({ className }) => {
-  const { isLogged, handleLogout } = useContext(AuthContext);
+  const { isLogged, handleLogout } = useAuth();
 
   const handleLogoutClick = async () => {
     await logout();

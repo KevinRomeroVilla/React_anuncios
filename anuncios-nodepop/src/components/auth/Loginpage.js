@@ -3,9 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import FormCheckBox from "../common/FormCheckbox";
 import FormField from "../common/FormField";
+import { useAuth } from "./context";
 import { login, loginSave } from "./service";
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = () => {
   const [email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [check, setCheck] = useState(false);
@@ -14,6 +15,7 @@ const LoginPage = ({ onLogin }) => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { handleLogin } = useAuth();
 
   const handleChangeUserEmail = (event) => setUserEmail(event.target.value);
   const handleChangePassword = (event) => setPassword(event.target.value);
@@ -32,7 +34,7 @@ const LoginPage = ({ onLogin }) => {
         await login({ email, password });
       }
 
-      onLogin();
+      handleLogin();
       console.log(location);
       const to = location.state?.from?.pathname || "/";
       navigate(to, { replace: true });
