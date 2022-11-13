@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import FormField from "../common/FormField";
 import FormFieldNumber from "../common/FormFieldNumber";
@@ -12,6 +13,7 @@ const NewAdvertsPage = (props) => {
   const [price, setPrice] = useState("");
   const [tags, setTags] = useState([]);
   const [photo, setPhoto] = useState(null);
+  const navigate = useNavigate();
 
   const handleChangeName = (event) => setName(event.target.value);
   const handleChangeSell = (event) => setSale(event.target.value);
@@ -33,10 +35,12 @@ const NewAdvertsPage = (props) => {
       } else {
         formData.append("photo", photo[0], { type: "image/jpeg" });
       }
-      const advert = await createAdvert(formData);
-      //debugger;
+      const createNewAdvert = await createAdvert(formData);
+      navigate(`/adverts/${createNewAdvert.id}`);
     } catch (error) {
-      console.log(error);
+      if (error.status === 401) {
+        navigate("/login");
+      }
     }
   };
 

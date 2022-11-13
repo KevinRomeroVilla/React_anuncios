@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Page from "../layout/Page";
 import { useEffect, useState } from "react";
 import { getAdvertDetail } from "./service";
+import Button from "../common/Button";
 
 const AdvertDetail = (props) => {
   const [advert, setAdvert] = useState("");
