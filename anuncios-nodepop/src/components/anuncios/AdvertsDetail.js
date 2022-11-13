@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Page from "../layout/Page";
 import { useEffect, useState } from "react";
-import { getAdvertDetail } from "./service";
+import { deleteAdvertDetail, getAdvertDetail } from "./service";
 import Button from "../common/Button";
 
 const AdvertDetail = (props) => {
@@ -9,6 +9,7 @@ const AdvertDetail = (props) => {
   const { advertsId } = useParams();
   const navigate = useNavigate();
   const [venta, setVenta] = useState("venta");
+  const [deleteAdvert, setDeletAdvert] = useState(false);
 
   useEffect(() => {
     getAdvertDetail(advertsId)
@@ -22,6 +23,13 @@ const AdvertDetail = (props) => {
       setVenta("Compra");
     }
   }, [advertsId, navigate, advert.sale]);
+
+  const handleDeleteAdverts = () => setDeletAdvert(true);
+  const handleAbortDelete = () => setDeletAdvert(false);
+  const handleConfirmDelete = () => {
+    deleteAdvertDetail(advertsId);
+    navigate("/adverts");
+  };
 
   return (
     <Page title={"Adverts detail"} {...props}>
@@ -38,6 +46,16 @@ const AdvertDetail = (props) => {
         <p>Object price {advert.price}</p>
         <p>{venta}</p>
         <p>Object Tags {advert.tags}</p>
+      </div>
+
+      <div>
+        <Button onClick={handleDeleteAdverts}>Delete this advert</Button>
+        {deleteAdvert && (
+          <div>
+            <Button onClick={handleConfirmDelete}>Confirm delete advert</Button>
+            <Button onClick={handleAbortDelete}>Cancel delete advert</Button>
+          </div>
+        )}
       </div>
     </Page>
   );
