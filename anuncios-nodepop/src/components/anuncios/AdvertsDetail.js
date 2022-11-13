@@ -40,7 +40,7 @@ const AdvertDetail = (props) => {
           width={200}
           className='advertDetailImage'
           src={advert.photo}
-          alt='https://user-images.githubusercontent.com/43302778/106805462-7a908400-6645-11eb-958f-cd72b74a17b3.jpg'
+          alt='no hay foto'
         ></img>
         <p>Object name {advert.name}</p>
         <p>Object price {advert.price}</p>
